@@ -2,6 +2,7 @@ package org.optimate.restWEBservice11.resources;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.optimate.restWEBservice11.model.Message;
+import org.optimate.restWEBservice11.resources.beans.MessageFilterBean;
 import org.optimate.restWEBservice11.service.MessageService;
 
 @Path("/messages")
@@ -25,14 +27,12 @@ public class MessageResource {
 	
 	
 	@GET
-	public List<Message>  getMessages(@QueryParam("year")int year,
-									  @QueryParam("start")int start,
-									  @QueryParam("size")int size) {
-		if (year >0 ) {
-			return messageService.getAllMessagesForYear(year);
+	public List<Message>  getMessages(@BeanParam MessageFilterBean filterBean) {
+		if (filterBean.getYear() >0 ) {
+			return messageService.getAllMessagesForYear(filterBean.getYear());
 		}
-		if(start >= 0 && size >= 0) {
-			return messageService.getAllMessagePaginated(start, size);
+		if(filterBean.getStart() >= 0 && filterBean.getSize() >= 0) {
+			return messageService.getAllMessagePaginated(filterBean.getStart(), filterBean.getSize());
 		}
 		return messageService.getAllMessages();
 	}
