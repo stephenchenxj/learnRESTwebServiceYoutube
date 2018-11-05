@@ -9,7 +9,7 @@ import org.optimate.restWEBservice11.database.DatabaseClass;
 import org.optimate.restWEBservice11.model.Message;
 
 public class MessageService {
-	
+
 	private Map<Long, Message> messages = DatabaseClass.getMessages();
 	
 	public MessageService() {
@@ -17,14 +17,8 @@ public class MessageService {
 		messages.put(2L, new Message(2L, "Hello Jersey!", "chen"));
 	}
 	
-	public List<Message> getAllMessages(){
-/*		Message m1 = new Message(1L, "Hello World!", "chen");
-		Message m2 = new Message(1L, "Hello Jersey!", "chen");
-		List<Message> list = new ArrayList<>();
-		list.add(m1);
-		list.add(m2);
-		return list;*/
-		return new ArrayList<Message>(messages.values());
+	public List<Message> getAllMessages() {
+		return new ArrayList<Message>(messages.values()); 
 	}
 	public List<Message> getAllMessagesForYear(int year){
 		List<Message> messagesForYear = new ArrayList<>();
@@ -37,7 +31,8 @@ public class MessageService {
 		}
 		return messagesForYear;
 	}
-	public List<Message>getAllMessagePaginated(int start, int size){
+	
+	public List<Message> getAllMessagesPaginated(int start, int size) {
 		ArrayList<Message> list = new ArrayList<Message>(messages.values());
 		if (start +size > list.size()) return new ArrayList<Message>();
 		return list.subList(start, start+size);
@@ -46,6 +41,7 @@ public class MessageService {
 	public Message getMessage(long id) {
 		return messages.get(id);
 	}
+
 	public Message addMessage(Message message) {
 		message.setId(messages.size() +1);
 		messages.put(message.getId(), message);

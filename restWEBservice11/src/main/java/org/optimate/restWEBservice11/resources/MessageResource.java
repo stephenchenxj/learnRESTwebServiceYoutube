@@ -27,20 +27,19 @@ public class MessageResource {
 	
 	
 	@GET
-	public List<Message>  getMessages(@BeanParam MessageFilterBean filterBean) {
-		if (filterBean.getYear() >0 ) {
+	public List<Message> getMessages(@BeanParam MessageFilterBean filterBean) {
+		if (filterBean.getYear() > 0) {
 			return messageService.getAllMessagesForYear(filterBean.getYear());
 		}
-		if(filterBean.getStart() >= 0 && filterBean.getSize() >= 0) {
-			return messageService.getAllMessagePaginated(filterBean.getStart(), filterBean.getSize());
+		if (filterBean.getStart() >= 0 && filterBean.getSize() > 0) {
+			return messageService.getAllMessagesPaginated(filterBean.getStart(), filterBean.getSize());
 		}
 		return messageService.getAllMessages();
 	}
-	
+
 	@POST
-	
-	public Message  addMessages(Message message) {		
-		return messageService.addMessage(message);		
+	public Message addMessage(Message message) {
+		return messageService.addMessage(message);
 	}
 	
 	@PUT
@@ -60,6 +59,12 @@ public class MessageResource {
 	@Path("/{messageId}")
 	public Message getMessage(@PathParam("messageId") long id) {
 		return messageService.getMessage(id);
+	}
+	
+	
+	@Path("/{messageId}/comments")
+	public CommentResource getCommentResource() {
+		return new CommentResource();
 	}
 
 

@@ -26,7 +26,7 @@ public class ProfileService {
 		return profile;
 	}
 	public Profile updateProfile(Profile profile) {
-		if(profile.getId() <= 0) {
+		if (profile.getProfileName().isEmpty()) {
 			return null;
 		}
 		profiles.put(profile.getProfileName(), profile);
