@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Calendar;
 
 import org.optimate.restWEBservice11.database.DatabaseClass;
+import org.optimate.restWEBservice11.exception.DataNotFoundException;
 import org.optimate.restWEBservice11.model.Message;
 
 public class MessageService {
@@ -39,7 +40,11 @@ public class MessageService {
 	}
 	
 	public Message getMessage(long id) {
-		return messages.get(id);
+		Message message = messages.get(id);
+		if (message == null) {
+			throw new DataNotFoundException("Message with id " + id + " not found");
+		}
+		return message;
 	}
 
 	public Message addMessage(Message message) {
