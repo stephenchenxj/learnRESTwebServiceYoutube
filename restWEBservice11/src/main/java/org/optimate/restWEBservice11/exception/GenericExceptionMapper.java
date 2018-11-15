@@ -9,7 +9,7 @@ import javax.ws.rs.ext.Provider;
 
 import org.optimate.restWEBservice11.model.ErrorMessage;
 
-@Provider
+//@Provider  // disable this generic exception mapper
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 	
 	@Override
